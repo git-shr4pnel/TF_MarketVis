@@ -4,6 +4,24 @@ from bs4 import BeautifulSoup as bs
 import js2py as js
 
 
+class TFData:
+    def __init__(self, date):
+        self.date = date
+
+    def __repr__(self):
+        return f"{self.date}"
+
+    def discern_price(self):
+        full_date = str(self.date[0][:11])
+        price = []
+        for character in str(self.date[1]):
+            if character == ",":
+                break
+            price.append(character)
+        price = "".join(price)
+        print(price)
+
+
 def get_market_data():
     r = requests.get("https://steamcommunity.com/market/listings/440/Mann%20Co.%20Supply%20Crate%20Key")
     soup = bs(r.content, "html.parser")
@@ -22,7 +40,16 @@ def get_market_data():
 
 
 def interpret_data(data):
-    pass
+    latest = len(data)-1
+    formatted_list = []
+    for n, item in enumerate(data):
+        if n > latest - 719:  # there are 719 entries at the end of the list with time specific data.
+            break             # we don't want or need that data. this simplifies working with it
+        formatted_list.append(item)
+    latest, monthly_list = len(formatted_list), []
+    for i in range(0, latest, 30):
+        monthly_list.append(TFData(data[i]))
+    return monthly_list
 
 
 def plot(data):

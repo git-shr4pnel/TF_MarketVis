@@ -1,5 +1,7 @@
 import requests
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import matplotlib.cbook as cbook
 from bs4 import BeautifulSoup as bs
 import js2py as js
 import os
@@ -86,6 +88,12 @@ def sort_monthly(data):
 
 
 def plot(data):
+    x_points, y_points, values = [], [], [x for x in range(0, 10)]
+    for item in data:
+        x_points.append(item.price)
+        y_points.append(item.time_is)
+    plt.plot(x_points, marker="o")
+    plt.show()
     return data
 
 

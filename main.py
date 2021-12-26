@@ -96,7 +96,6 @@ def plot(data):
     datetime_dates = [dt.datetime.strptime(str(d), "%d %b %Y").date() for d in dates]
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%d %b %Y"))
     plt.gca().xaxis.set_major_locator(mdates.MonthLocator(interval=8))
-    print(datetime_dates)
     plt.title("Key Value")
     plt.plot(datetime_dates, y_points, color="red")
     plt.gcf().autofmt_xdate()

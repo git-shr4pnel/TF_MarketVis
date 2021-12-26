@@ -29,8 +29,7 @@ class Key:
 
 
 def get_market_data():
-    pl = {"country": "GB"}
-    r = requests.get("https://steamcommunity.com/market/listings/440/Mann%20Co.%20Supply%20Crate%20Key", params=pl)
+    r = requests.get("https://steamcommunity.com/market/listings/440/Mann%20Co.%20Supply%20Crate%20Key")
     soup = bs(r.content, "html.parser")
     tags, tag = soup.find_all("script", {"type": "text/javascript"}), None
     for tag in tags:

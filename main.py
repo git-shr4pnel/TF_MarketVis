@@ -1,9 +1,9 @@
 import requests
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-import matplotlib.cbook as cbook
 from bs4 import BeautifulSoup as bs
 import js2py as js
+import datetime as dt
 import os
 import json
 import time
@@ -87,11 +87,19 @@ def sort_monthly(data):
 
 
 def plot(data):
-    x_points, y_points, values = [], [], [x for x in range(0, 10)]
+    y_points, dates, values = [], [], [x for x in range(0, 10)]
     for item in data:
-        x_points.append(item.price)
-        y_points.append(item.time_is)
-    plt.plot(x_points, marker="o")
+        y_points.append(item.price)
+        dates.append(item.time_is)
+    plt.ylabel("Price (£)")
+    plt.xlabel("Date")
+    datetime_dates = [dt.datetime.strptime(str(d), "%d %b %Y").date() for d in dates]
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%d %b %Y"))
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator(interval=8))
+    print(datetime_dates)
+    plt.title("Key Value")
+    plt.plot(datetime_dates, y_points, color="red")
+    plt.gcf().autofmt_xdate()
     plt.show()
     return data
 

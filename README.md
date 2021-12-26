@@ -1,3 +1,3 @@
 **Market visualisation tool for keys**
 
-Not currently working. Will update and improve over time.
+Not currently functioning fully. Will update and improve over time.

@@ -7,7 +7,6 @@ import datetime as dt
 import os
 import json
 import time
-import datetime
 
 
 class Date:
